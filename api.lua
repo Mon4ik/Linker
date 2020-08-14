@@ -26,7 +26,11 @@ function api.openLnk(lnkFile)
 		local data = file.readAll()
 		file.close()
 		local dataa = assert(loadstring("return "..data))()
-		shell.setDir(dataa.path)
+		if fs.isDir(dataa.path) then
+			shell.setDir(dataa.path)
+		else
+			shell.run(dataa.path)
+		end
 	end
 	return err
 end
